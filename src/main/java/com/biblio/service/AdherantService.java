@@ -25,8 +25,8 @@ public class AdherantService {
         return adherantRepository.save(adherant);
     }
 
-    public void delete(int idAderant){
-        adherantRepository.deleteById(idAderant);;
+    public void delete(int idAdherant){
+        adherantRepository.deleteById(idAdherant);;
     }
 
     public AdherantModel authentification(String email, String password){
