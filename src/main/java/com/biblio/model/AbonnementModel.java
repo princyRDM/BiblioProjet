@@ -1,5 +1,7 @@
 package com.biblio.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,24 +10,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "adherant")
-public class AdherantModel {
+@Table(name = "abonnement")
+public class AbonnementModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAdherant;
-    private String nom;
-    private String prenom;
-    private String contact;
-    private String email;
-    private String password;
+    private int idAbonnement;
 
     @ManyToOne
-    @JoinColumn(name = "idTypeAdherant", nullable = false)
-    private TypeAdherantModel typeAdherant;
+    @JoinColumn(name = "idAdherant", nullable = false)
+    private AdherantModel adherant;
+
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
 }

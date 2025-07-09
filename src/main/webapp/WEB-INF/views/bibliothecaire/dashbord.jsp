@@ -9,7 +9,7 @@
     <div class="container">
         <h1>Biblio</h1>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/abonnement/ajout">Abonnement</a></li>
+            <li><a href="${pageContext.request.contextPath}/abonnement/form">Abonnement</a></li>
         </ul>
     </div>
 </body>
