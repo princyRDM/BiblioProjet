@@ -28,4 +28,8 @@ public class AdherantService {
     public void delete(int idAderant){
         adherantRepository.deleteById(idAderant);;
     }
+
+    public AdherantModel authentification(String email, String password){
+        return adherantRepository.findByEmailAndPassword(email, password);
+    }
 }

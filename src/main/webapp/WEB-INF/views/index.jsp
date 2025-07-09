@@ -12,11 +12,11 @@
             <form action="${pageContext.request.contextPath}/login/authentification" method="post">
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="user@example.com" required>
+                    <input type="email" name="email" id="email" value="hasina@gmail.com" placeholder="user@example.com" required>
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <input type="password" name="password" id="password" value="hasina" placeholder="Password" required>
                 </div>
                 <div>
                     <label for="">Utilisateur</label>

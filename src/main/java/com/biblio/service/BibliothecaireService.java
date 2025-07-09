@@ -20,4 +20,7 @@ public class BibliothecaireService {
     public BibliothecaireModel findById(int idBibliothecaire){
         return bibliothecaireRepository.findById(idBibliothecaire).orElse(null);
     }
-}
+    public BibliothecaireModel authentification(String email, String password){
+        return bibliothecaireRepository.findByEmailAndPassword(email, password);
+    }
+} 

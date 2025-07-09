@@ -18,6 +18,12 @@ CREATE TABLE adherant(
     contact VARCHAR(15),
     email VARCHAR(100),
     password VARCHAR(100),
-    typeAdherant INT,
+    idTypeAdherant INT,
     FOREIGN KEY typeAdherant REFERENCES typeAdherant(idTypeAdherant)
+);
+
+CREATE TABLE abonnement(
+    idAbonnement INT AUTO_INCREMENT PRIMARY KEY,
+    idAdherant INT,
+    
 );
