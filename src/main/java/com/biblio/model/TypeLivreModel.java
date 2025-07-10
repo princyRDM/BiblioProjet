@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "typeAdherant")
-public class TypeAdherantModel {
+@Table(name = "typeLivre")
+public class TypeLivreModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTypeAdherant;
-    
+    private int idtypeLivre;
+
     private String libelle;
 }
