@@ -29,3 +29,33 @@ CREATE TABLE abonnement(
     dateFin DATE,
     Foreign Key (idAdherant) REFERENCES adherant(idAdherant)
 );
+
+CREATE TABLE jourFerier(
+    idJourFerier INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE,
+    description VARCHAR(50)
+);
+
+CREATE TABLE typeLivre(
+    idTypeLivre INT AUTO_INCREMENT PRIMARY KEY,
+    libelle VARCHAR(20)
+);
+CREATE TABLE livre(
+    idLivre INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(100),
+    auteur VARCHAR(50),
+    anneePublication DATE,
+    idTypeLivre INT,
+    langue VARCHAR(50),
+    accessibilite INT,
+    Foreign Key (idTypeLivre) REFERENCES typeLivre(idTypeLivre)
+);
+
+CREATE TABLE exemplaire(
+    idExemplaire INT AUTO_INCREMENT PRIMARY KEY,
+    idLivre INT,
+    numExemplaire VARCHAR(20),
+    etat VARCHAR(15),
+    Foreign Key (idLivre) REFERENCES livre(idLivre)
+);
+

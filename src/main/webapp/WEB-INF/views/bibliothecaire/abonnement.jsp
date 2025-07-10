@@ -6,7 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container" align="center">
+    <div class="container">
+        <div class="nav">
+            <ul>
+                <li><a href="${pageContext.request.contextPath}/bibliotheque/dashbord">Dashbord</a></li>
+                <li><a href="${pageContext.request.contextPath}/livre/listes">Livre</a></li>
+                <li><a href="${pageContext.request.contextPath}/abonnement/form">Abonnement</a></li>
+            </ul>            
+        </div>
         <div class="message">
             <c:if test="${not empty message}">
                 <p>${message}</p>
@@ -15,7 +22,7 @@
         <h1>Abonnement</h1>
         <form action="${pageContext.request.contextPath}/abonnement/ajout" method="post">
             <div>
-                <select name="idAdherant" id="">
+                <select name="idAdherant" required>
                     <option value="">-- Selectionner un Adherant --</option>
                     <c:forEach var="adherant" items="${adherants}">
                         <option value="${adherant.idAdherant}">${adherant.nom} ${adherant.prenom}</option>
@@ -24,11 +31,11 @@
             </div>
             <div>
                 <label for="">dateDebut</label>
-                <input type="date" name="dateDebut" id="">
+                <input type="date" name="dateDebut" required>
             </div>
             <div>
                 <label for="">dateFin</label>
-                <input type="date" name="dateFin" id="">
+                <input type="date" name="dateFin" required>
             </div>
             <button type="submit">Valider</button>
         </form>

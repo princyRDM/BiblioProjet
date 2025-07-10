@@ -1,5 +1,7 @@
 package com.biblio.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,11 +16,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "typeAdherant")
-public class TypeAdherantModel {
+@Table(name = "jourFerier")
+public class JourFerierModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTypeAdherant;
-    
-    private String libelle;
+    private int idJourFerier;
+
+    private LocalDate date;
+    private String description;
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biblio.model.AbonnementModel;
-import com.biblio.model.AdherantModel;
 import com.biblio.repository.AbonnementRepository;
 
 @Service
