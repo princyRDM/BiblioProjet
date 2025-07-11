@@ -17,6 +17,10 @@ public class ExemplaireService {
         return exemplaireRepository.findAll();
     }
 
+    public List<ExemplaireModel> findAllByIdLivre(int idLivre){
+        return exemplaireRepository.findByLivreIdLivre(idLivre);
+    }
+
     public ExemplaireModel findById(int idLivre){
         return exemplaireRepository.findById(idLivre).orElse(null);
     }
@@ -28,4 +32,5 @@ public class ExemplaireService {
     public void delete(int idLivre){
         exemplaireRepository.deleteById(idLivre);;
     }
+
 }
