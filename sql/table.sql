@@ -59,9 +59,6 @@ CREATE TABLE exemplaire(
     status VARCHAR(15) DEFAULT "Libre",
     Foreign Key (idLivre) REFERENCES livre(idLivre)
 );
--- ALTER TABLE exemplaire
--- ADD COLUMN status VARCHAR(15) DEFAULT "Libre";
-
 CREATE TABLE reservation(
     idReservation INT AUTO_INCREMENT PRIMARY KEY,
     idAdherant INT,
