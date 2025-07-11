@@ -50,7 +50,7 @@
                             <td>${livre.langue}</td>
                             <td>
                                 <a href="#">Preter</a>
-                                <a href="#">Reserver</a>
+                                <a href="${pageContext.request.contextPath}/reservation/form?idLivre=${livre.idLivre}">Reserver</a>
                             </td>
                         </tr>
                     </c:forEach>

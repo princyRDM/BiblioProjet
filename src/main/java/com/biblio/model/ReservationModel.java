@@ -1,5 +1,7 @@
 package com.biblio.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,17 +18,21 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "exemplaire")
-public class ExemplaireModel {
+@Table(name = "reservation")
+public class ReservationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idExemplaire;
+    private int idReservation;
 
     @ManyToOne
-    @JoinColumn(name = "idLivre", nullable = false)
-    private LivreModel livre;
+    @JoinColumn(name = "idAdherant", nullable = false)
+    private AdherantModel adherant;
 
-    private String numExemplaire;
-    private String etat;
+    @ManyToOne
+    @JoinColumn(name = "idExemplaire", nullable = false)
+    private ExemplaireModel exemplaire;
+
+    private LocalDate dateReservation;
     private String status;
+
 }
