@@ -12,6 +12,7 @@
                 <li><a href="${pageContext.request.contextPath}/bibliotheque/dashbord">Dashbord</a></li>
                 <li><a href="${pageContext.request.contextPath}/livre/listes">Livre</a></li>
                 <li><a href="${pageContext.request.contextPath}/abonnement/form">Abonnement</a></li>
+                <li><a href="${pageContext.request.contextPath}/rendu/prim">Rendre un livre</a></li>
             </ul>            
         </div>
         <div class="message">
