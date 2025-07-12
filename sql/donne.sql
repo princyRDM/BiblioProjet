@@ -87,3 +87,24 @@ INSERT INTO exemplaire (idLivre, numExemplaire, etat) VALUES
 (18, 'EX018-1', 'Bon'), (18, 'EX018-2', 'Bon'),
 (19, 'EX019-1', 'Bon'), (19, 'EX019-2', 'Bon'),
 (20, 'EX020-1', 'Bon'), (20, 'EX020-2', 'Bon');
+
+-----
+INSERT INTO typePret (libelle) VALUES 
+('Domicile'), 
+('SurPlace');
+
+INSERT INTO quotaPret (idTypePret, idTypeAdherant, quota, delaiPret) VALUES
+(1, 1, 3, 5),   -- Étudiant, prêt à domicile : max 3 livres, 4 jours
+(1, 2, 7, 7),   -- Professeur, prêt à domicile : max 5 livres, 7 jours
+(1, 3, 4, 5),  
+(1, 4, 0, 0),     -- Anonyme, prêt à domicile : interdit
+
+(2, 1, 10, NULL), -- Étudiant, sur place : pas de limite
+(2, 2, 10, NULL), -- Professeur, sur place : pas de limit(1, 3, 2, 5),     
+(2, 3, 10, NULL), -- Professionnel, prêt sur place : illimité
+(2, 4, 10, NULL); -- Anonyme, prêt sur place : autorisé sans limite
+
+SELECT COUNT(*) AS nb_prets_en_cours
+FROM pret
+WHERE idAdherant = 1
+  AND statut = 'En cours';
