@@ -49,7 +49,7 @@
                             <td>${livre.anneePublication}</td>
                             <td>${livre.langue}</td>
                             <td>
-                                <a href="#">Preter</a>
+                                <a href="${pageContext.request.contextPath}/pret/formulaire?idLivre=${livre.idLivre}">Preter</a>
                                 <a href="${pageContext.request.contextPath}/reservation/form?idLivre=${livre.idLivre}">Reserver</a>
                             </td>
                         </tr>

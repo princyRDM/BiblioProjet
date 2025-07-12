@@ -32,5 +32,13 @@ public class ExemplaireService {
     public void delete(int idLivre){
         exemplaireRepository.deleteById(idLivre);;
     }
+    
+    public void changerStatutExemplaire(int idExemplaire, String nouveauStatut) {
+        ExemplaireModel exemplaire = exemplaireRepository.findById(idExemplaire)
+                .orElseThrow(() -> new RuntimeException("Exemplaire introuvable"));
+
+        exemplaire.setStatus(nouveauStatut);
+        exemplaireRepository.save(exemplaire);
+    }
 
 }

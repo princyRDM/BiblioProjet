@@ -66,3 +66,34 @@ CREATE TABLE reservation(
     dateReservation DATE,
     status VARCHAR(15) DEFAULT "En cour"
 );
+
+----
+CREATE TABLE typePret (
+    idTypePret INT AUTO_INCREMENT PRIMARY KEY,
+    libelle VARCHAR(20) -- 'Domicile' ou 'SurPlace'
+);
+CREATE TABLE quotaPret (
+    idQuotaPret INT AUTO_INCREMENT,
+    idTypePret INT,
+    idTypeAdherant INT,
+    quota INT,              -- nombre maximum de livres pour ce type de prêt
+    delaiPret INT,          -- durée autorisée en jours (par exemple : 4 jours)
+    PRIMARY KEY (idQuotaPret, idTypePret, idTypeAdherant),
+    FOREIGN KEY (idTypePret) REFERENCES typePret(idTypePret),
+    FOREIGN KEY (idTypeAdherant) REFERENCES typeAdherant(idTypeAdherant)
+);
+
+CREATE TABLE pret (
+    idPret INT AUTO_INCREMENT PRIMARY KEY,
+    idExemplaire INT NOT NULL,
+    idAdherant INT NOT NULL,
+    datePret DATE NOT NULL,
+    dateRetourPrevue DATE,     -- Utilisé pour les prêts à domicile
+    dateRetourReelle DATE,     -- Quand le livre est rendu
+    typePret VARCHAR(20) NOT NULL CHECK (typePret IN ('Domicile', 'SurPlace')),
+    heurePret TIME,            -- Utilisé pour les prêts sur place
+    heureRetourPrevue TIME,    -- Heure de fin du prêt sur place
+    statut VARCHAR(20) DEFAULT 'En cours' CHECK (statut IN ('En cours', 'Rendu')),
+    FOREIGN KEY (idExemplaire) REFERENCES exemplaire(idExemplaire),
+    FOREIGN KEY (idAdherant) REFERENCES adherant(idAdherant)
+);
