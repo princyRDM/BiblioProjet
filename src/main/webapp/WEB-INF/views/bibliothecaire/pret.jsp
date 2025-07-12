@@ -41,19 +41,16 @@
                 </select>
             </div>
             
-
-            <div id="datePretDomicile" class="hidden">
-                <label>Date du pret (à domicile) :</label>
-                <input type="date" id="datePretDomicileInput" name="datePret" required />
+            <div>
+                <label>Date du prêt :</label>
+                <input type="date" id="datePret" name="datePret" required />
             </div>
 
-            <div id="dateHeurePretSurPlace" class="hidden">
-                <label>Date du pret (sur place) :</label>
-                <input type="date" id="datePretSurPlace" name="datePret" />
-                <br /><br />
-                <label>Heure du pret :</label>
-                <input type="time" id="heurePretSurPlace" name="heurePret" min="08:00" max="17:30"/>
+            <div id="heurePretSurPlaceDiv" class="hidden">
+                <label>Heure du prêt :</label>
+                <input type="time" id="heurePret" name="heurePret" min="08:00" max="17:30" />
             </div>
+
 
             <button type="submit">Valider le pret</button>
         </form>

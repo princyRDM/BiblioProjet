@@ -97,3 +97,10 @@ CREATE TABLE pret (
     FOREIGN KEY (idExemplaire) REFERENCES exemplaire(idExemplaire),
     FOREIGN KEY (idAdherant) REFERENCES adherant(idAdherant)
 );
+
+-- CREATE TABLE renduLivre(
+--     idrenduLivre INT AUTO_INCREMENT PRIMARY KEY,
+--     idAdherant INT,
+--     idExemplaire INT,
+--     idtype
+-- );

@@ -59,7 +59,9 @@ public class PretController {
         List<AbonnementModel> abonnement = abonnementService.findByIdAdherant(adherant.getIdAdherant());
         LocalDate date = LocalDate.parse(datePretStr);
         QuotaPretModel quota1 = quotaPretService.findByIdTPandIdTA(1, idAdherant);
-        int nbrlivrePreterDomicile = pretService.countByAdherant_IdAdherantAndStatut(1, "En cours");
+        QuotaPretModel quota2 = quotaPretService.findByIdTPandIdTA(2, idAdherant);
+        int nbrlivrePreterDomicile = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Domicile","En cours");
+        int nbrlivrePreterSurPlace = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Sur place","En cours");
         if (abonnement.isEmpty()) {
             return "redirect:/livre/listes?Pas encore abonne";
         }else{
@@ -68,9 +70,6 @@ public class PretController {
                     return "redirect:/livre/listes?Abonnement expirer sur cette date";
                 }
             }
-        }
-        if (nbrlivrePreterDomicile == quota1.getQuota()) {
-            return "redirect:/livre/listes?Quota deja atteint";
         }
         if (exemplaire.getStatus().equals("Occupé")) {
             return "redirect:/livre/listes?livre deja occuper";
@@ -84,12 +83,21 @@ public class PretController {
             pret.setStatut("En cours");
 
             if ("SurPlace".equals(typePret)) {
-                pret.setHeurePret(LocalTime.parse(heurePretStr));
+                if (nbrlivrePreterSurPlace == quota2.getQuota()) {
+                    return "redirect:/livre/listes?Quota deja atteint";
+                }else{
+                    pret.setHeurePret(LocalTime.parse(heurePretStr));
+                    pret.setDateRetourPrevue(date);
+                }
             } else if ("Domicile".equals(typePret)) {
-                TypeAdherantModel typeAdherant = adherant.getTypeAdherant();
-                QuotaPretModel quota = quotaPretService.findByIdTPandIdTA(1, typeAdherant.getIdTypeAdherant());
-                LocalDate dateRetourPrevue = LocalDate.parse(datePretStr).plusDays(quota.getDelaiPret());
-                pret.setDateRetourPrevue(dateRetourPrevue);
+                if (nbrlivrePreterDomicile == quota1.getQuota()) {
+                    return "redirect:/livre/listes?Quota deja atteint";
+                }else{
+                    TypeAdherantModel typeAdherant = adherant.getTypeAdherant();
+                    QuotaPretModel quota = quotaPretService.findByIdTPandIdTA(1, typeAdherant.getIdTypeAdherant());
+                    LocalDate dateRetourPrevue = LocalDate.parse(datePretStr).plusDays(quota.getDelaiPret());
+                    pret.setDateRetourPrevue(dateRetourPrevue);
+                }
             }
 
             // Enregistrer le prêt

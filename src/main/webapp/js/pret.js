@@ -1,7 +1,7 @@
 const typePretSelect = document.getElementById('typePret');
-const datePretDomicileDiv = document.getElementById('datePretDomicile');
-const datePretDomicileInput = document.getElementById('datePretDomicileInput');
-const dateHeurePretSurPlaceDiv = document.getElementById('dateHeurePretSurPlace');
+const datePretInput = document.getElementById('datePret'); // ID unique pour la date
+const heurePretSurPlaceDiv = document.getElementById('heurePretSurPlaceDiv'); // nouveau div pour l'heure
+const heurePretInput = document.getElementById('heurePret');
 
 function formatDateToYYYYMMDD(date) {
     const d = new Date(date);
@@ -10,47 +10,48 @@ function formatDateToYYYYMMDD(date) {
     return `${d.getFullYear()}-${month}-${day}`;
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Affiche la date du jour au chargement
+    datePretInput.value = formatDateToYYYYMMDD(new Date());
+    heurePretSurPlaceDiv.classList.add('hidden');
+});
+
 typePretSelect.addEventListener('change', () => {
     const selected = typePretSelect.value;
 
-    if (selected === 'Domicile') {
-    // Affiche date du jour en readonly
-    datePretDomicileDiv.classList.remove('hidden');
-    dateHeurePretSurPlaceDiv.classList.add('hidden');
-    datePretDomicileInput.value = formatDateToYYYYMMDD(new Date());
-    } else if (selected === 'SurPlace') {
-    // Affiche date + heure modifiable
-    dateHeurePretSurPlaceDiv.classList.remove('hidden');
-    datePretDomicileDiv.classList.add('hidden');
+    if (selected === 'SurPlace') {
+        heurePretSurPlaceDiv.classList.remove('hidden');
 
-    // Initialise date à aujourd'hui
-    document.getElementById('datePretSurPlace').value = formatDateToYYYYMMDD(new Date());
-    // Initialise heure à maintenant (HH:MM)
-    const now = new Date();
-    const hh = ('0' + now.getHours()).slice(-2);
-    const mm = ('0' + now.getMinutes()).slice(-2);
-    document.getElementById('heurePretSurPlace').value = `${hh}:${mm}`;
+        // Initialise heure à maintenant (HH:MM)
+        const now = new Date();
+        const hh = ('0' + now.getHours()).slice(-2);
+        const mm = ('0' + now.getMinutes()).slice(-2);
+        heurePretInput.value = `${hh}:${mm}`;
     } else {
-    // Aucun champ affiché
-    datePretDomicileDiv.classList.add('hidden');
-    dateHeurePretSurPlaceDiv.classList.add('hidden');
+        heurePretSurPlaceDiv.classList.add('hidden');
+        heurePretInput.value = ''; // vide si pas besoin
     }
+
+    // Toujours mettre la date à aujourd’hui
+    datePretInput.value = formatDateToYYYYMMDD(new Date());
 });
 
-// Optionnel : empêcher soumission si infos manquantes
+// Validation
 document.getElementById('formPret').addEventListener('submit', (e) => {
     const typePret = typePretSelect.value;
-    if (!typePret) {
-    alert('Veuillez choisir un type de prêt.');
-    e.preventDefault();
-    return;
-    }
-    if (typePret === 'SurPlace') {
-    const datePret = document.getElementById('datePretSurPlace').value;
-    const heurePret = document.getElementById('heurePretSurPlace').value;
-    if (!datePret || !heurePret) {
-        alert('Veuillez renseigner la date et l\'heure du prêt sur place.');
+    const datePret = datePretInput.value;
+
+    if (!typePret || !datePret) {
+        alert('Veuillez remplir tous les champs requis.');
         e.preventDefault();
+        return;
     }
+
+    if (typePret === 'SurPlace') {
+        const heurePret = heurePretInput.value;
+        if (!heurePret) {
+            alert("Veuillez renseigner l'heure pour le prêt sur place.");
+            e.preventDefault();
+        }
     }
 });
