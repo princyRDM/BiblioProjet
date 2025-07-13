@@ -59,6 +59,7 @@ CREATE TABLE exemplaire(
     status VARCHAR(15) DEFAULT "Libre",
     Foreign Key (idLivre) REFERENCES livre(idLivre)
 );
+
 CREATE TABLE reservation(
     idReservation INT AUTO_INCREMENT PRIMARY KEY,
     idAdherant INT,
@@ -78,6 +79,7 @@ CREATE TABLE quotaPret (
     idTypeAdherant INT,
     quota INT,              -- nombre maximum de livres pour ce type de prêt
     delaiPret INT,          -- durée autorisée en jours (par exemple : 4 jours)
+    nbrJourPenaliter INT,          
     PRIMARY KEY (idQuotaPret, idTypePret, idTypeAdherant),
     FOREIGN KEY (idTypePret) REFERENCES typePret(idTypePret),
     FOREIGN KEY (idTypeAdherant) REFERENCES typeAdherant(idTypeAdherant)
@@ -98,9 +100,10 @@ CREATE TABLE pret (
     FOREIGN KEY (idAdherant) REFERENCES adherant(idAdherant)
 );
 
--- CREATE TABLE renduLivre(
---     idrenduLivre INT AUTO_INCREMENT PRIMARY KEY,
---     idAdherant INT,
---     idExemplaire INT,
---     idtype
--- );
+CREATE TABLE penaliter(
+    idPenaliter INT AUTO_INCREMENT PRIMARY KEY,
+    idAdherant INT,
+    dateDebut DATE,
+    dateFin DATE,
+    Foreign Key (idAdherant) REFERENCES adherant(idAdherant)
+);

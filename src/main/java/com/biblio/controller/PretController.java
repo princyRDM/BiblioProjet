@@ -6,6 +6,7 @@ import com.biblio.service.AdherantService;
 import com.biblio.service.ExemplaireService;
 import com.biblio.service.PretService;
 import com.biblio.service.QuotaPretService;
+import com.biblio.service.PenaliterService;
 
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,8 @@ public class PretController {
     private ExemplaireService exemplaireService;
     @Autowired
     private QuotaPretService quotaPretService;
+    @Autowired
+    private PenaliterService penaliterService;
 
     @GetMapping("/formulaire")
     public String formualire(
@@ -62,6 +65,7 @@ public class PretController {
         QuotaPretModel quota2 = quotaPretService.findByIdTPandIdTA(2, idAdherant);
         int nbrlivrePreterDomicile = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Domicile","En cours");
         int nbrlivrePreterSurPlace = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Sur place","En cours");
+        List<PenaliterModel> penaliter = penaliterService.findByIdAdherant(idAdherant);
         if (abonnement.isEmpty()) {
             return "redirect:/livre/listes?Pas encore abonne";
         }else{
@@ -76,10 +80,11 @@ public class PretController {
         }else{
             // Initialiser le prêt
             PretModel pret = new PretModel();
+            LocalDate dprt = LocalDate.parse(datePretStr);
             pret.setAdherant(adherant);
             pret.setExemplaire(exemplaire);
             pret.setTypePret(typePret);
-            pret.setDatePret(LocalDate.parse(datePretStr));
+            pret.setDatePret(dprt);
             pret.setStatut("En cours");
 
             if ("SurPlace".equals(typePret)) {
@@ -99,7 +104,13 @@ public class PretController {
                     pret.setDateRetourPrevue(dateRetourPrevue);
                 }
             }
-
+            if (penaliter != null) {
+                for (PenaliterModel pnl : penaliter) {
+                    if (dprt.isBefore(pnl.getDateDebut()) && dprt.isAfter(pnl.getDateFin())) {
+                        return "redirect:/livre/listes?L adherant est encore penaliser jusqu au "+pnl.getDateFin()                                                                                                                                                              ;
+                    }
+                }
+            }
             // Enregistrer le prêt
             pretService.save(pret);
             exemplaireService.changerStatutExemplaire(idExemplaire, "Occupé");

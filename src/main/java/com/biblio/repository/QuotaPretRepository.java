@@ -11,5 +11,4 @@ import com.biblio.model.QuotaPretModel;
 public interface QuotaPretRepository extends JpaRepository<QuotaPretModel, Integer>{
     @Query("SELECT q FROM QuotaPretModel q WHERE q.typePret.idTypePret = :typePret AND q.typeAdherant.idTypeAdherant = :typeAdherant")
     QuotaPretModel findByTypePretAndTypeAdherant(@Param("typePret") int typePret, @Param("typeAdherant") int typeAdherant);
-    // public QuotaPretModel findByIdTypePretAndIdTypeAdherant(int typePret, int typeAdherant);
 }

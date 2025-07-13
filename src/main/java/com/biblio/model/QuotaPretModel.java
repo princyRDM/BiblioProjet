@@ -17,6 +17,7 @@ public class QuotaPretModel {
 
     private Integer quota;
     private Integer delaiPret;
+    private Integer nbrJourPenaliter;
 
     @ManyToOne
     @JoinColumn(name = "idTypePret")
@@ -25,4 +26,5 @@ public class QuotaPretModel {
     @ManyToOne
     @JoinColumn(name = "idTypeAdherant")
     private TypeAdherantModel typeAdherant; // à créer si non existant
+
 }

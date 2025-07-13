@@ -1,26 +1,77 @@
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rendu1</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        #searchInput {
+            margin-top: 10px;
+            padding: 6px;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function filterAdherants() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let rows = document.querySelectorAll("#adherantTable tbody tr");
+            rows.forEach(row => {
+                let id = row.querySelector(".id").textContent.toLowerCase();
+                let nom = row.querySelector(".nom").textContent.toLowerCase();
+                let prenom = row.querySelector(".prenom").textContent.toLowerCase();
+                row.style.display = (id.includes(input) || nom.includes(input) || prenom.includes(input)) ? "" : "none";
+            });
+        }
+
+        function selectAdherant(id) {
+            document.getElementById("idAdherant").value = id;
+            document.getElementById("renduForm").submit();
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Rendu livre</h1>
-        <form action="${pageContext.request.contextPath}/rendu/second" method="post">
-            <div>
-                <label for="">Adherant</label>
-                <select name="idAdherant" required>
-                    <option value="">-- Choisissez l'Adherant --</option>
-                    <c:forEach var="adherant" items="${adherants}">
-                        <option value="${adherant.idAdherant}">${adherant.nom} ${adherant.prenom}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <button type="submit">Valider</button>
+        <input type="text" id="searchInput" onkeyup="filterAdherants()" placeholder="Rechercher par ID, nom ou prénom...">
+        
+        <form id="renduForm" action="${pageContext.request.contextPath}/rendu/second" method="post">
+            <input type="hidden" name="idAdherant" id="idAdherant">
         </form>
+
+        <table id="adherantTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="adherant" items="${adherants}">
+                    <tr>
+                        <td class="id">${adherant.idAdherant}</td>
+                        <td class="nom">${adherant.nom}</td>
+                        <td class="prenom">${adherant.prenom}</td>
+                        <td>
+                            <button type="button" onclick="selectAdherant('${adherant.idAdherant}')">Choisir</button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

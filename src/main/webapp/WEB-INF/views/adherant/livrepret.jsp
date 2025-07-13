@@ -26,6 +26,13 @@
     </style>
 </head>
 <body>
+    <div class="nav">
+        <ul>
+            <li><a href="${pageContext.request.contextPath}/adherant/dashbord">Livre</a></li>
+            <li><a href="${pageContext.request.contextPath}/adherant/livreEmprunt">Livre emprunter</a></li>
+            <li><a href="${pageContext.request.contextPath}/adherant/livreRendu">Livre rendu</a></li>
+        </ul>            
+    </div>
     <h2>Liste des prets de ${adherant.nom} ${adherant.prenom}</h2>
 
     <h3>Prets à domicile</h3>
@@ -60,7 +67,7 @@
                             <c:if test="${pret.statut == 'En cours'}">
                                 <form method="post" action="${pageContext.request.contextPath}/rendu/rendufinal">
                                     <input type="hidden" name="idPret" value="${pret.idPret}" />
-                                    <button type="submit">Rendre</button>
+                                    <button type="submit">Prolonger</button>
                                 </form>
                             </c:if>
                         </td>
@@ -79,7 +86,7 @@
                 <th>Date du pret</th>
                 <th>Heure du pret</th>
                 <th>Statut</th>
-                <th>Action</th>
+                <!-- <th>Action</th> -->
             </tr>
         </thead>
         <tbody>
@@ -98,14 +105,14 @@
                             </c:choose>
                         </td>
                         <td class="${pret.statut == 'En cours' ? 'en-cours' : 'rendu'}">${pret.statut}</td>
-                        <td>
+                        <!-- <td>
                             <c:if test="${pret.statut == 'En cours'}">
                                 <form method="post" action="${pageContext.request.contextPath}/rendu/rendufinal">
                                     <input type="hidden" name="idPret" value="${pret.idPret}" />
                                     <button type="submit">Rendre</button>
                                 </form>
                             </c:if>
-                        </td>
+                        </td> -->
                     </tr>
                 </c:if>
             </c:forEach>

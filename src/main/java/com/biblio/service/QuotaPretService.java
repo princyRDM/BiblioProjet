@@ -2,7 +2,6 @@ package com.biblio.service;
 
 import com.biblio.model.*;
 import com.biblio.repository.QuotaPretRepository;
-import com.biblio.repository.TypePretRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +16,6 @@ public class QuotaPretService {
 
     @Autowired
     private QuotaPretRepository quotaPretRepository;
-    @Autowired
-    private TypePretRepository typePretRepository;
 
     public List<QuotaPretModel> findAll() {
         return quotaPretRepository.findAll();

@@ -26,6 +26,13 @@
     </style>
 </head>
 <body>
+    <div class="nav">
+        <ul>
+            <li><a href="${pageContext.request.contextPath}/adherant/dashbord">Livre</a></li>
+            <li><a href="${pageContext.request.contextPath}/adherant/livreEmprunt">Livre emprunter</a></li>
+            <li><a href="${pageContext.request.contextPath}/adherant/livreRendu">Livre rendu</a></li>
+        </ul>            
+    </div>
     <h2>Liste des prets de ${adherant.nom} ${adherant.prenom}</h2>
 
     <h3>Prets à domicile</h3>
@@ -36,8 +43,8 @@
                 <th>Exemplaire</th>
                 <th>Date du pret</th>
                 <th>Date retour prévue</th>
+                <th>Date rendu</th>
                 <th>Statut</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -55,15 +62,8 @@
                                 <c:otherwise>-</c:otherwise>
                             </c:choose>
                         </td>
+                        <td>${pret.dateRetourReelle}</td>
                         <td class="${pret.statut == 'En cours' ? 'en-cours' : 'rendu'}">${pret.statut}</td>
-                        <td>
-                            <c:if test="${pret.statut == 'En cours'}">
-                                <form method="post" action="${pageContext.request.contextPath}/rendu/rendufinal">
-                                    <input type="hidden" name="idPret" value="${pret.idPret}" />
-                                    <button type="submit">Rendre</button>
-                                </form>
-                            </c:if>
-                        </td>
                     </tr>
                 </c:if>
             </c:forEach>
@@ -78,8 +78,8 @@
                 <th>Exemplaire</th>
                 <th>Date du pret</th>
                 <th>Heure du pret</th>
+                <th>Heure de rendu</th>
                 <th>Statut</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -97,15 +97,8 @@
                                 <c:otherwise>-</c:otherwise>
                             </c:choose>
                         </td>
+                        <td>${pret.heureRetourPrevue}</td>
                         <td class="${pret.statut == 'En cours' ? 'en-cours' : 'rendu'}">${pret.statut}</td>
-                        <td>
-                            <c:if test="${pret.statut == 'En cours'}">
-                                <form method="post" action="${pageContext.request.contextPath}/rendu/rendufinal">
-                                    <input type="hidden" name="idPret" value="${pret.idPret}" />
-                                    <button type="submit">Rendre</button>
-                                </form>
-                            </c:if>
-                        </td>
                     </tr>
                 </c:if>
             </c:forEach>
