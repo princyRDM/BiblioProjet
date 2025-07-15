@@ -69,8 +69,8 @@
                                 <td>${reservation.exemplaire.numExemplaire}</td>
                                 <td>${reservation.dateReservation}</td>
                                 <td>
-                                    <a href="${reservation.idReservation}/reservation/accepter?idReservation=${reservation.idReservation}" class="action-btn accept-btn">Accepter</a>
-                                    <a href="${reservation.idReservation}/reservation/refuser?idReservation=${reservation.idReservation}" class="action-btn reject-btn">Refuser</a>
+                                    <a href="${pageContext.request.contextPath}/reservation/accepter?idReservation=${reservation.idReservation}" class="action-btn accept-btn">Accepter</a>
+                                    <a href="${pageContext.request.contextPath}/reservation/refuser?idReservation=${reservation.idReservation}" class="action-btn reject-btn">Refuser</a>
                                 </td>
                             </tr>
                         </c:forEach>
