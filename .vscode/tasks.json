@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "mvn clean install",
+			"command": "mvn",
+			"args": [
+				"clean",
+				"install"
+			],
+			"problemMatcher": [
+				"$javac"
+			],
+			"group": "build",
+			"isBackground": false
+		}
+	]
+}

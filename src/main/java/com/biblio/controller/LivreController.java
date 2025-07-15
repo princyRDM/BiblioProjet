@@ -23,10 +23,15 @@ public class LivreController {
 
     @GetMapping("/listes")
     public String liste(Model model){
-        List<LivreModel> livres = livreService.findAll();
-        List<TypeLivreModel> typelivres = typeLivreService.findAll();
-        model.addAttribute("livres", livres);
-        model.addAttribute("typelivres", typelivres);
+        // List<LivreModel> livres = livreService.findAll();
+        // List<TypeLivreModel> typelivres = typeLivreService.findAll();
+        // model.addAttribute("livres", livres);
+        // model.addAttribute("typelivres", typelivres);
         return "bibliothecaire/liste";
+    }
+
+    @GetMapping("/infoLivre")
+    public String infoLivre(){
+        return "bibliothecaire/infolivre";
     }
 }

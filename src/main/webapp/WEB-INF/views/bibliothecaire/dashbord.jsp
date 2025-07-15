@@ -21,6 +21,8 @@
                     <li><a href="${pageContext.request.contextPath}/abonnement/form"> Abonnements</a></li>
                     <li><a href="${pageContext.request.contextPath}/rendu/prim"> Retour de livres</a></li>
                     <li><a href="${pageContext.request.contextPath}/reservation/reserver"> Reservations</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bibliotheque/adherants">Adherants</a></li>
+                    <li><a href="${pageContext.request.contextPath}/adherant/ajout">Inscription</a></li>
                 </ul>            
             </nav>
         </div>

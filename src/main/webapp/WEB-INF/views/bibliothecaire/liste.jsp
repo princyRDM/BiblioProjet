@@ -6,34 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblio - Liste des Livres</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Bdashbord.css">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 40px;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .en-cours {
-            color: red;
-        }
-        .rendu {
-            color: green;
-        }
-        .bt{
-            width: 100px;
-            height: 50px;
-        }
-    </style>
 </head>
+<style>
+    /* Style pour les boutons d'action */
+.btn-action {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #27ae60;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.btn-action2 {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #ffb300;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.btn-action:hover {
+  background: #219150;
+}
+</style>
 <body>
     <div class="dashboard">
-        <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
                 <h1> Biblio</h1>
@@ -45,15 +46,16 @@
                     <li><a href="${pageContext.request.contextPath}/abonnement/form"> Abonnements</a></li>
                     <li><a href="${pageContext.request.contextPath}/rendu/prim"> Retour de livres</a></li>
                     <li><a href="${pageContext.request.contextPath}/reservation/reserver"> Reservations</a></li>
-                </ul>            
+                    <li><a href="${pageContext.request.contextPath}/bibliotheque/adherants">Adherants</a></li>
+                    <li><a href="${pageContext.request.contextPath}/adherant/ajout">Inscription</a></li>
+                </ul>
             </nav>
         </div>
 
-        <!-- Main Content -->
         <main class="main-content">
             <div class="page-header">
                 <h1>Liste des livres</h1>
-                
+
                 <div class="search-filter">
                     <div class="search-box">
                         <input type="text" name="recherche" id="recherche" placeholder="Rechercher un livre...">
@@ -67,112 +69,117 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div><br>
 
-            <table class="books-table">
-                <thead>
-                    <tr>
-                        <th>Titre</th>
-                        <th>Auteur</th>
-                        <th>Type</th>
-                        <th>Annee</th>
-                        <th>Langue</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                    <tbody id="booksTableBody">
-                        <c:forEach var="livre" items="${livres}">
-                            <tr data-type-id="${livre.typeLivre.idtypeLivre}">
-                                <td>${livre.titre}</td>
-                                <td>${livre.auteur}</td>
-                                <td>${livre.typeLivre.libelle}</td>
-                                <td>${livre.anneePublication}</td>
-                                <td>${livre.langue}</td>
-                                <td>
-                                    <div class="action-links">
-                                        <a href="${pageContext.request.contextPath}/pret/formulaire?idLivre=${livre.idLivre}"><button class="bt" style="background: rgb(18, 162, 18); ">Preter</button></a>
-                                        <a href="${pageContext.request.contextPath}/reservation/form?idLivre=${livre.idLivre}"><button class="bt" style="background: rgb(218, 255, 6); ">Reserver</button></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-            </table>
+            <div>
+                <table id="livresTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre</th>
+                            <th>Auteur</th>
+                            <th>Annee de publication</th>
+                            <th>Langue</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </main>
     </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    const contextPath = '<%= request.getContextPath() %>';
+    document.addEventListener('DOMContentLoaded', () => {
+        const tableBody = document.querySelector('#livresTable tbody');
         const searchInput = document.getElementById('recherche');
-        const typeFilter = document.getElementById('typeFilter');
-        const tableBody = document.getElementById('booksTableBody');
+        let livresData = [];
 
-        // Fonction utilitaire pour supprimer les accents et convertir en minuscules
-        function normalizeText(text) {
-            return text
-                .normalize("NFD") // decompose les accents
-                .replace(/[\u0300-\u036f]/g, "") // supprime les accents
-                .toLowerCase(); // rend insensible a la casse
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            for (let i = 0; i < data.length; i++) {
+                const livre = data[i];
+                const row = document.createElement('tr');
+
+                const idCell = document.createElement('td');
+                idCell.textContent = livre.idLivre;
+                row.appendChild(idCell);
+
+                const titreCell = document.createElement('td');
+                const titreLink = document.createElement('a');
+                titreLink.textContent = livre.titre;
+                titreLink.href = contextPath + '/livre/infoLivre?idLivre=' + livre.idLivre;
+                titreLink.className = 'titre-link';
+                titreCell.appendChild(titreLink);
+                row.appendChild(titreCell);
+
+                const auteurCell = document.createElement('td');
+                auteurCell.textContent = livre.auteur;
+                row.appendChild(auteurCell);
+
+                const anneeCell = document.createElement('td');
+                anneeCell.textContent = livre.anneePublication[0];
+                row.appendChild(anneeCell);
+
+                const langueCell = document.createElement('td');
+                langueCell.textContent = livre.langue;
+                row.appendChild(langueCell);
+
+                const typeLivreCell = document.createElement('td');
+                typeLivreCell.textContent = livre.typeLivre.libelle;
+                row.appendChild(typeLivreCell);
+
+                // Bouton Pret
+                const pretCell = document.createElement('td');
+                const pretBtn = document.createElement('a');
+                pretBtn.textContent = 'Preter';
+                pretBtn.href = contextPath + '/pret/formulaire?idLivre=' + livre.idLivre;
+                pretBtn.className = 'btn-action';
+                pretBtn.style.marginRight = '8px';
+                pretCell.appendChild(pretBtn);
+
+                // Bouton Reserver
+                const reserverBtn = document.createElement('a');
+                reserverBtn.textContent = 'Reserver';
+                reserverBtn.href = contextPath + '/reservation/form?idLivre=' + livre.idLivre;
+                reserverBtn.className = 'btn-action2';
+                pretCell.appendChild(reserverBtn);
+
+                row.appendChild(pretCell);
+                tableBody.appendChild(row);
+            }
         }
 
-        function filterBooks() {
-            const searchTerm = normalizeText(searchInput.value);
-            const selectedType = typeFilter.value;
-            const rows = tableBody.getElementsByTagName('tr');
-
-            Array.from(rows).forEach(row => {
-                const cells = row.getElementsByTagName('td');
-                const typeId = row.getAttribute('data-type-id');
-
-                if (cells.length > 0) {
-                    // Concatene tout le texte visible de la ligne
-                    const rowText = Array.from(cells).map(cell => cell.textContent).join(' ');
-                    const normalizedRowText = normalizeText(rowText);
-
-                    const matchesSearch = normalizedRowText.includes(searchTerm);
-                    const matchesType = selectedType === '' || typeId === selectedType;
-
-                    if (matchesSearch && matchesType) {
-                        row.style.display = '';
-                        row.style.animation = 'fadeInUp 0.3s ease forwards';
-                    } else {
-                        row.style.display = 'none';
-                    }
+        fetch(contextPath + '/api/livre/getLivres')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erreur lors du chargement des livres");
                 }
+                return response.json();
+            })
+            .then(data => {
+                livresData = data;
+                renderTable(livresData);
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+                tableBody.innerHTML = `<tr><td colspan="4">Impossible de charger les livres.</td></tr>`;
             });
 
-            const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
-            if (visibleRows.length === 0) {
-                showEmptyState();
-            } else {
-                hideEmptyState();
-            }
-        }
-
-        function showEmptyState() {
-            const existing = document.querySelector('.empty-state');
-            if (!existing) {
-                const emptyState = document.createElement('div');
-                emptyState.className = 'empty-state';
-                emptyState.innerHTML = 'Aucun livre trouve pour cette recherche';
-                tableBody.parentNode.parentNode.appendChild(emptyState);
-            }
-        }
-
-        function hideEmptyState() {
-            const existing = document.querySelector('.empty-state');
-            if (existing) {
-                existing.remove();
-            }
-        }
-
-        // evenements
-        searchInput.addEventListener('input', filterBooks);
-        typeFilter.addEventListener('change', filterBooks);
-
-        // Animation au chargement
-        const rows = tableBody.getElementsByTagName('tr');
-        Array.from(rows).forEach((row, index) => {
-            row.style.animationDelay = `${index * 0.1}s`;
+        searchInput.addEventListener('input', function() {
+            const searchValue = this.value.toLowerCase();
+            const filtered = livresData.filter(livre => {
+                return (
+                    livre.idLivre.toString().includes(searchValue) ||
+                    livre.titre.toLowerCase().includes(searchValue) ||
+                    livre.auteur.toLowerCase().includes(searchValue) ||
+                    (livre.anneePublication[0] && livre.anneePublication[0].toString().includes(searchValue)) ||
+                    livre.langue.toLowerCase().includes(searchValue) ||
+                    (livre.typeLivre && livre.typeLivre.libelle && livre.typeLivre.libelle.toLowerCase().includes(searchValue))
+                );
+            });
+            renderTable(filtered);
         });
     });
 </script>

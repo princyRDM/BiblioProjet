@@ -9,7 +9,7 @@ import com.biblio.model.TypeAdherantModel;
 import com.biblio.repository.TypeAdherantRepository;
 
 @Service
-public class TypeAdherantSerice {
+public class TypeAdherantService {
     @Autowired
     private TypeAdherantRepository typeAdherantRepository;
 

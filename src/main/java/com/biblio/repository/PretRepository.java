@@ -12,4 +12,5 @@ public interface PretRepository extends JpaRepository<PretModel, Integer>{
     int countByStatut(String statut);
     int countByTypePretAndStatut(String typePret, String statut);
     List<PretModel> findByAdherant_IdAdherantAndStatut(int idAdherant, String statut);
+    List<PretModel> findByAdherant_IdAdherant(int idAdherant);
 }

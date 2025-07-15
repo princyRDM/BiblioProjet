@@ -4,26 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Liste des prets</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 40px;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .en-cours {
-            color: red;
-        }
-        .rendu {
-            color: green;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adherant.css">
 </head>
 <body>
     <div class="nav">

@@ -6,26 +6,6 @@
     <title>Formulaire de pret</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Bdashbord.css">
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 40px;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .en-cours {
-            color: red;
-        }
-        .rendu {
-            color: green;
-        }
-    </style>
-    <style>
     .hidden { display: none; }
     </style>
 </head>
@@ -42,12 +22,14 @@
                     <li><a href="${pageContext.request.contextPath}/abonnement/form"> Abonnements</a></li>
                     <li><a href="${pageContext.request.contextPath}/rendu/prim"> Retour de livres</a></li>
                     <li><a href="${pageContext.request.contextPath}/reservation/reserver"> Reservations</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bibliotheque/adherants">Adherants</a></li>
+                    <li><a href="${pageContext.request.contextPath}/adherant/ajout">Inscription</a></li>
                 </ul>            
             </nav>
         </div>
 
         <main class="main-content">
-        <h1>Pret</h1>
+        <h1 align="center">Preter</h1>
 
             <form id="formPret" action="${pageContext.request.contextPath}/pret/ajout" method="post">
                 <div>

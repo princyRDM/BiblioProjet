@@ -65,21 +65,29 @@ public class PretController {
         ExemplaireModel exemplaire = exemplaireService.findById(idExemplaire);
         List<AbonnementModel> abonnement = abonnementService.findByIdAdherant(adherant.getIdAdherant());
         LocalDate date = LocalDate.parse(datePretStr);
+        
         QuotaPretModel quota1 = quotaPretService.findByIdTPandIdTA(1, idAdherant);
         QuotaPretModel quota2 = quotaPretService.findByIdTPandIdTA(2, idAdherant);
+        
         int nbrlivrePreterDomicile = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Domicile","En cours");
         int nbrlivrePreterSurPlace = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Sur place","En cours");
+        
         List<PenaliterModel> penaliter = penaliterService.findByIdAdherant(idAdherant);
         List<JourFerierModel> jourFerier = jourFerierService.findAll();
+        
         if (abonnement.isEmpty()) {
             return "redirect:/livre/listes?Pas encore abonne";
-        }else{
-            for (AbonnementModel ab : abonnement) {
-                if (ab.getDateDebut().isBefore(date) && ab.getDateFin().isAfter(date)) {
-                    return "redirect:/livre/listes?Abonnement expirer sur cette date";
+        }else
+            if (abonnement != null && !abonnement.isEmpty()) {
+                for (AbonnementModel ab : abonnement) {
+                    LocalDate debut = ab.getDateDebut();
+                    LocalDate fin = ab.getDateFin();
+
+                    if (debut != null && fin != null && (date.isBefore(debut) || date.isAfter(fin))) {
+                        return "redirect:/livre/listes?Abonnement expire a cette date";
+                    }
                 }
             }
-        }
         if (exemplaire.getStatus().equals("Occupe")) {
             return "redirect:/livre/listes?livre deja occuper";
         }else{

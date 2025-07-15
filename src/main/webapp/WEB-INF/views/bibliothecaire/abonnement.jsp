@@ -7,26 +7,6 @@
     <title>Gestion d'abonnement - Bibliotheque</title>
     <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Bdashbord.css"> -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Bdashbord.css">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 40px;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .en-cours {
-            color: red;
-        }
-        .rendu {
-            color: green;
-        }
-    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -42,6 +22,8 @@
                     <li><a href="${pageContext.request.contextPath}/abonnement/form">Abonnements</a></li>
                     <li><a href="${pageContext.request.contextPath}/rendu/prim">Retour de livres</a></li>
                     <li><a href="${pageContext.request.contextPath}/reservation/reserver">Reservations</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bibliotheque/adherants">Adherants</a></li>
+                    <li><a href="${pageContext.request.contextPath}/adherant/ajout">Inscription</a></li>
                 </ul>            
             </nav>
         </div>
@@ -57,7 +39,7 @@
 
             <!-- Formulaire d'abonnement -->
             <div class="form-container">
-                <h1>Nouvel Abonnement</h1>
+                <h1 align="center">Nouvel Abonnement</h1>
                 <form action="${pageContext.request.contextPath}/abonnement/ajout" method="post">
                     <div class="form-group">
                         <label for="idAdherant">Adherent</label>

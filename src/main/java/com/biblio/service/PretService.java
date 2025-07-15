@@ -17,6 +17,10 @@ public class PretService {
         return pretRepository.findAll();
     }
 
+    public List<PretModel> findByIdAdherant(int idAdherant) {
+        return pretRepository.findByAdherant_IdAdherant(idAdherant);
+    }
+
     public PretModel findById(int idPret) {
         return pretRepository.findById(idPret).orElse(null);
     }

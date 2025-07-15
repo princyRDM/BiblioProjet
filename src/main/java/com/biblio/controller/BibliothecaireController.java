@@ -31,4 +31,16 @@ public class BibliothecaireController {
         model.addAttribute("nbrLES",nbrLivreEmprunterSurPlace);
         return "/bibliothecaire/dashbord";
     }
+
+    @GetMapping("/adherants")
+    public String adherants(
+        Model model
+    ){
+        return "/bibliothecaire/adherant";
+    }
+
+    @GetMapping("/infoadherant")
+    public String infoadherants(){
+        return "/bibliothecaire/infoAdherant";
+    }
 }

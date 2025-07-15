@@ -92,7 +92,7 @@ public class RenduController {
 
         // Sauvegarde
         pretService.save(pret); // Attention : save() doit aussi sauver l'exemplaire si pas en cascade
-        if (pret.getDateRetourReelle().isBefore(pret.getDateRetourPrevue())) {
+        if (pret.getDateRetourReelle().isAfter(pret.getDateRetourPrevue())) {
             PenaliterModel p = new PenaliterModel();
             QuotaPretModel q = quotaPretService.findByIdTPandIdTA(1, pret.getAdherant().getTypeAdherant().getIdTypeAdherant());
             p.setAdherant(pret.getAdherant());
