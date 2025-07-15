@@ -17,7 +17,7 @@
     <context:component-scan base-package="com.biblio.model"/>
     <jpa:repositories base-package="com.biblio.repository"/>
 
-    <!-- Déclaration de la source de données -->
+    <!-- Declaration de la source de donnees -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/projetbiblio"/>

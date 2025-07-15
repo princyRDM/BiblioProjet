@@ -25,6 +25,6 @@ public class QuotaPretModel {
 
     @ManyToOne
     @JoinColumn(name = "idTypeAdherant")
-    private TypeAdherantModel typeAdherant; // à créer si non existant
+    private TypeAdherantModel typeAdherant; // a creer si non existant
 
 }

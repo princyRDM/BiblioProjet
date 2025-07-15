@@ -3,30 +3,33 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Rendu1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendu de livre - Bibliotheque</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Bdashbord.css">
     <style>
         table {
-            width: 100%;
             border-collapse: collapse;
-            margin-top: 1em;
+            width: 100%;
+            margin-bottom: 40px;
         }
-        th, td {
-            border: 1px solid #ccc;
+        table, th, td {
+            border: 1px solid black;
             padding: 8px;
         }
         th {
-            background-color: #f0f0f0;
+            background-color: #f2f2f2;
         }
-        #searchInput {
-            margin-top: 10px;
-            padding: 6px;
-            width: 100%;
+        .en-cours {
+            color: red;
+        }
+        .rendu {
+            color: green;
         }
     </style>
     <script>
         function filterAdherants() {
             let input = document.getElementById("searchInput").value.toLowerCase();
-            let rows = document.querySelectorAll("#adherantTable tbody tr");
+            let rows = document.querySelectorAll(".adherant-table tbody tr");
             rows.forEach(row => {
                 let id = row.querySelector(".id").textContent.toLowerCase();
                 let nom = row.querySelector(".nom").textContent.toLowerCase();
@@ -42,36 +45,64 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Rendu livre</h1>
-        <input type="text" id="searchInput" onkeyup="filterAdherants()" placeholder="Rechercher par ID, nom ou prénom...">
-        
-        <form id="renduForm" action="${pageContext.request.contextPath}/rendu/second" method="post">
-            <input type="hidden" name="idAdherant" id="idAdherant">
-        </form>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Biblio</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/bibliotheque/dashbord">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/livre/listes">Livres</a></li>
+                    <li><a href="${pageContext.request.contextPath}/abonnement/form">Abonnements</a></li>
+                    <li><a href="${pageContext.request.contextPath}/rendu/prim">Retour de livres</a></li>
+                    <li><a href="${pageContext.request.contextPath}/reservation/reserver">Reservations</a></li>
+                </ul>            
+            </nav>
+        </div>
 
-        <table id="adherantTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="adherant" items="${adherants}">
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Rendu de livre</h1>
+                
+                <div class="search-box">
+                    <input type="text" id="searchInput" onkeyup="filterAdherants()" 
+                           placeholder="Rechercher par ID, nom ou prenom...">
+                </div>
+            </div>
+
+            <form id="renduForm" action="${pageContext.request.contextPath}/rendu/second" method="post">
+                <input type="hidden" name="idAdherant" id="idAdherant">
+            </form>
+
+            <table class="adherant-table">
+                <thead>
                     <tr>
-                        <td class="id">${adherant.idAdherant}</td>
-                        <td class="nom">${adherant.nom}</td>
-                        <td class="prenom">${adherant.prenom}</td>
-                        <td>
-                            <button type="button" onclick="selectAdherant('${adherant.idAdherant}')">Choisir</button>
-                        </td>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Action</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach var="adherant" items="${adherants}">
+                        <tr>
+                            <td class="id">${adherant.idAdherant}</td>
+                            <td class="nom">${adherant.nom}</td>
+                            <td class="prenom">${adherant.prenom}</td>
+                            <td>
+                                <button type="button" class="select-btn" 
+                                        onclick="selectAdherant('${adherant.idAdherant}')">
+                                    Choisir
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </main>
     </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import com.biblio.service.ExemplaireService;
 import com.biblio.service.PretService;
 import com.biblio.service.QuotaPretService;
 import com.biblio.service.PenaliterService;
+import com.biblio.service.JourFerierService;
 
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -36,6 +38,8 @@ public class PretController {
     private QuotaPretService quotaPretService;
     @Autowired
     private PenaliterService penaliterService;
+    @Autowired
+    private JourFerierService jourFerierService;
 
     @GetMapping("/formulaire")
     public String formualire(
@@ -66,6 +70,7 @@ public class PretController {
         int nbrlivrePreterDomicile = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Domicile","En cours");
         int nbrlivrePreterSurPlace = pretService.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, "Sur place","En cours");
         List<PenaliterModel> penaliter = penaliterService.findByIdAdherant(idAdherant);
+        List<JourFerierModel> jourFerier = jourFerierService.findAll();
         if (abonnement.isEmpty()) {
             return "redirect:/livre/listes?Pas encore abonne";
         }else{
@@ -75,10 +80,10 @@ public class PretController {
                 }
             }
         }
-        if (exemplaire.getStatus().equals("Occupé")) {
+        if (exemplaire.getStatus().equals("Occupe")) {
             return "redirect:/livre/listes?livre deja occuper";
         }else{
-            // Initialiser le prêt
+            // Initialiser le pret
             PretModel pret = new PretModel();
             LocalDate dprt = LocalDate.parse(datePretStr);
             pret.setAdherant(adherant);
@@ -101,6 +106,14 @@ public class PretController {
                     TypeAdherantModel typeAdherant = adherant.getTypeAdherant();
                     QuotaPretModel quota = quotaPretService.findByIdTPandIdTA(1, typeAdherant.getIdTypeAdherant());
                     LocalDate dateRetourPrevue = LocalDate.parse(datePretStr).plusDays(quota.getDelaiPret());
+                    if (dateRetourPrevue.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                        dateRetourPrevue = dateRetourPrevue.plusDays(1);
+                    }
+                    for (JourFerierModel jf : jourFerier) {
+                        if (jf.getDate() == dateRetourPrevue) {
+                            dateRetourPrevue = dateRetourPrevue.plusDays(1);
+                        }
+                    }
                     pret.setDateRetourPrevue(dateRetourPrevue);
                 }
             }
@@ -111,9 +124,9 @@ public class PretController {
                     }
                 }
             }
-            // Enregistrer le prêt
+            // Enregistrer le pret
             pretService.save(pret);
-            exemplaireService.changerStatutExemplaire(idExemplaire, "Occupé");
+            exemplaireService.changerStatutExemplaire(idExemplaire, "Occupe");
             return "redirect:/livre/listes?pret valider";
         }
         

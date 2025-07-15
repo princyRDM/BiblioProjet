@@ -22,7 +22,7 @@ typePretSelect.addEventListener('change', () => {
     if (selected === 'SurPlace') {
         heurePretSurPlaceDiv.classList.remove('hidden');
 
-        // Initialise heure à maintenant (HH:MM)
+        // Initialise heure a maintenant (HH:MM)
         const now = new Date();
         const hh = ('0' + now.getHours()).slice(-2);
         const mm = ('0' + now.getMinutes()).slice(-2);
@@ -32,7 +32,7 @@ typePretSelect.addEventListener('change', () => {
         heurePretInput.value = ''; // vide si pas besoin
     }
 
-    // Toujours mettre la date à aujourd’hui
+    // Toujours mettre la date a aujourd’hui
     datePretInput.value = formatDateToYYYYMMDD(new Date());
 });
 
@@ -50,7 +50,7 @@ document.getElementById('formPret').addEventListener('submit', (e) => {
     if (typePret === 'SurPlace') {
         const heurePret = heurePretInput.value;
         if (!heurePret) {
-            alert("Veuillez renseigner l'heure pour le prêt sur place.");
+            alert("Veuillez renseigner l'heure pour le pret sur place.");
             e.preventDefault();
         }
     }

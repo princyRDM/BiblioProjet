@@ -35,14 +35,14 @@
     </div>
     <h2>Liste des prets de ${adherant.nom} ${adherant.prenom}</h2>
 
-    <h3>Prets à domicile</h3>
+    <h3>Prets a domicile</h3>
     <table>
         <thead>
             <tr>
                 <th>Titre livre</th>
                 <th>Exemplaire</th>
                 <th>Date du pret</th>
-                <th>Date retour prévue</th>
+                <th>Date retour prevue</th>
                 <th>Statut</th>
                 <th>Action</th>
             </tr>

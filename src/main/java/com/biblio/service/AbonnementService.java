@@ -39,4 +39,14 @@ public class AbonnementService {
         }
         return true;
     }
+
+    public boolean estabonneCetteDate(int idAdherant, LocalDate date){
+        List<AbonnementModel> abonnements = abonnementRepository.findByAdherantIdAdherant(idAdherant);
+        for (AbonnementModel ab : abonnements) {
+            if (ab.getDateDebut().isAfter(date) && ab.getDateFin().isBefore(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

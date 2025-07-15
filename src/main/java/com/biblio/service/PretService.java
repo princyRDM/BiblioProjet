@@ -37,6 +37,15 @@ public class PretService {
         return pretRepository.countByAdherant_IdAdherantAndTypePretAndStatut(idAdherant, typePret, statut);
     }
 
+    
+    public int countByStatut(String statut){
+        return pretRepository.countByStatut(statut);
+    }
+
+    public int countByTypePretAndStatut(String typePret, String statut){
+        return pretRepository.countByTypePretAndStatut(typePret, statut);
+    }
+
     public List<PretModel> findByAdherant_IdAdherantAndStatut(int idAdherant, String statut){
         return pretRepository.findByAdherant_IdAdherantAndStatut(idAdherant, statut);
     }

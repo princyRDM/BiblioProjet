@@ -69,7 +69,7 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate(); // ➖ Supprime toutes les données en session
+        session.invalidate(); // ➖ Supprime toutes les donnees en session
         return "redirect:/index";
     }
 

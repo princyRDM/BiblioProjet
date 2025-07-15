@@ -73,21 +73,21 @@ public class RenduController {
         PretModel pret = pretService.findById(idPret);
 
         if (pret == null) {
-            // Gérer le cas où le prêt n'existe pas (facultatif mais propre)
+            // Gerer le cas où le pret n'existe pas (facultatif mais propre)
             return "redirect:/rendu/prim?error=pret-inexistant";
         }
 
-        // Traitement selon le type de prêt
+        // Traitement selon le type de pret
         if ("Domicile".equalsIgnoreCase(pret.getTypePret())) {
             pret.setDateRetourReelle(LocalDate.parse(dateRetour));
         } else if ("SurPlace".equalsIgnoreCase(pret.getTypePret())) {
             pret.setHeureRetourPrevue(LocalTime.parse(heureRetour));
         }
 
-        // Mise à jour du statut du prêt
+        // Mise a jour du statut du pret
         pret.setStatut("Rendu");
 
-        // Mise à jour du statut de l'exemplaire
+        // Mise a jour du statut de l'exemplaire
         pret.getExemplaire().setStatus("Libre");
 
         // Sauvegarde

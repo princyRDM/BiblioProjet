@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f6f9;
+  line-height: 1.6;
+  color: #333;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ecf0f1;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.nav ul li {
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.nav ul li a {
+  color: #bdc3c7;
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.nav ul li a:hover, .nav ul li a.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+  flex-grow: 1;
+  background-color: #f4f6f9;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-box, .filter-box {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.search-box input, .filter-box select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.books-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.books-table thead {
+  background-color: #3498db;
+  color: white;
+}
+
+.books-table th, .books-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.books-table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.action-links {
+  display: flex;
+  gap: 10px;
+}
+
+.action-links a {
+  text-decoration: none;
+  color: #3498db;
+  transition: color 0.3s ease;
+}
+
+.action-links a:hover {
+  color: #2980b9;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+  }
+  
+  .search-filter {
+    flex-direction: column;
+  }
+  
+  .search-box, .filter-box {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+  
+.sidebar {
+width: 100%;
+}
+
+.nav ul {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.nav ul li {
+margin: 5px;
+}

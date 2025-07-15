@@ -31,9 +31,9 @@ INSERT INTO typeLivre (libelle) VALUES
 ('Essai'),
 ('Biographie'),
 ('Livre documentaire'),
-('Poésie'),
-('Théâtre'),
-('Bande dessinée'),
+('Poesie'),
+('Theâtre'),
+('Bande dessinee'),
 ('Manga'),
 ('Livre jeunesse'),
 ('Livre scolaire'),
@@ -46,22 +46,22 @@ INSERT INTO typeLivre (libelle) VALUES
 
 INSERT INTO livre (titre, auteur, anneePublication, idTypeLivre, langue, accessibilite) VALUES
 ('1984', 'George Orwell', '1949-06-08', 13, 'Anglais', 1),
-('L\'Étranger', 'Albert Camus', '1942-05-01', 1, 'Français', 1),
+('L\'etranger', 'Albert Camus', '1942-05-01', 1, 'Français', 1),
 ('Madame Bovary', 'Gustave Flaubert', '1857-12-01', 1, 'Français', 2),
-('Les Misérables', 'Victor Hugo', '1862-01-01', 1, 'Français', 2),
-('Le Petit Prince', 'Antoine de Saint-Exupéry', '1943-04-06', 10, 'Français', 2),
-('Orgueil et Préjugés', 'Jane Austen', '1813-01-28', 16, 'Anglais', 2),
+('Les Miserables', 'Victor Hugo', '1862-01-01', 1, 'Français', 2),
+('Le Petit Prince', 'Antoine de Saint-Exupery', '1943-04-06', 10, 'Français', 2),
+('Orgueil et Prejuges', 'Jane Austen', '1813-01-28', 16, 'Anglais', 2),
 ('Crime et Châtiment', 'Fiodor Dostoïevski', '1866-01-01', 16, 'Russe', 2),
 ('Cent ans de solitude', 'Gabriel García Márquez', '1967-05-30', 1, 'Espagnol', 2),
 ('Le Vieil Homme et la Mer', 'Ernest Hemingway', '1952-09-01', 1, 'Anglais', 2),
 ('Les Hauts de Hurlevent', 'Emily Brontë', '1847-12-01', 1, 'Anglais', 2),
 ('Don Quichotte', 'Miguel de Cervantes', '1605-01-16', 1, 'Espagnol', 2),
 ('Moby Dick', 'Herman Melville', '1851-10-18', 1, 'Anglais', 2),
-('Anna Karénine', 'Léon Tolstoï', '1877-01-01', 1, 'Russe', 2),
-('À la recherche du temps perdu', 'Marcel Proust', '1913-11-01', 1, 'Français', 2),
-('Le Procès', 'Franz Kafka', '1925-04-26', 1, 'Allemand', 2),
+('Anna Karenine', 'Leon Tolstoï', '1877-01-01', 1, 'Russe', 2),
+('a la recherche du temps perdu', 'Marcel Proust', '1913-11-01', 1, 'Français', 2),
+('Le Proces', 'Franz Kafka', '1925-04-26', 1, 'Allemand', 2),
 ('Hamlet', 'William Shakespeare', '1603-01-01', 7, 'Anglais', 2),
-('La Divine Comédie', 'Dante Alighieri', '1320-01-01', 6, 'Italien', 2),
+('La Divine Comedie', 'Dante Alighieri', '1320-01-01', 6, 'Italien', 2),
 ('Le Rouge et le Noir', 'Stendhal', '1830-01-01', 15, 'Français', 2),
 ('Beloved', 'Toni Morrison', '1987-09-02', 1, 'Anglais', 2),
 ('Mrs Dalloway', 'Virginia Woolf', '1925-05-14', 1, 'Anglais', 2);
@@ -94,15 +94,15 @@ INSERT INTO typePret (libelle) VALUES
 ('SurPlace');
 
 INSERT INTO quotaPret (idTypePret, idTypeAdherant, quota, delaiPret) VALUES
-(1, 1, 3, 5),   -- Étudiant, prêt à domicile : max 3 livres, 4 jours
-(1, 2, 7, 7),   -- Professeur, prêt à domicile : max 5 livres, 7 jours
+(1, 1, 3, 5),   -- etudiant, pret a domicile : max 3 livres, 4 jours
+(1, 2, 7, 7),   -- Professeur, pret a domicile : max 5 livres, 7 jours
 (1, 3, 4, 5),  
-(1, 4, 0, 0),     -- Anonyme, prêt à domicile : interdit
+(1, 4, 0, 0),     -- Anonyme, pret a domicile : interdit
 
-(2, 1, 10, NULL), -- Étudiant, sur place : pas de limite
+(2, 1, 10, NULL), -- etudiant, sur place : pas de limite
 (2, 2, 10, NULL), -- Professeur, sur place : pas de limit(1, 3, 2, 5),     
-(2, 3, 10, NULL), -- Professionnel, prêt sur place : illimité
-(2, 4, 10, NULL); -- Anonyme, prêt sur place : autorisé sans limite
+(2, 3, 10, NULL), -- Professionnel, pret sur place : illimite
+(2, 4, 10, NULL); -- Anonyme, pret sur place : autorise sans limite
 
 SELECT COUNT(*) AS nb_prets_en_cours
 FROM pret

@@ -9,5 +9,7 @@ import com.biblio.model.PretModel;
 public interface PretRepository extends JpaRepository<PretModel, Integer>{
     int countByAdherant_IdAdherantAndStatut(int idAdherant, String statut);
     int countByAdherant_IdAdherantAndTypePretAndStatut(int idAdherant, String typePret, String statut);
+    int countByStatut(String statut);
+    int countByTypePretAndStatut(String typePret, String statut);
     List<PretModel> findByAdherant_IdAdherantAndStatut(int idAdherant, String statut);
 }

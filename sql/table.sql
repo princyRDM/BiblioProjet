@@ -77,8 +77,8 @@ CREATE TABLE quotaPret (
     idQuotaPret INT AUTO_INCREMENT,
     idTypePret INT,
     idTypeAdherant INT,
-    quota INT,              -- nombre maximum de livres pour ce type de prêt
-    delaiPret INT,          -- durée autorisée en jours (par exemple : 4 jours)
+    quota INT,              -- nombre maximum de livres pour ce type de pret
+    delaiPret INT,          -- duree autorisee en jours (par exemple : 4 jours)
     nbrJourPenaliter INT,          
     PRIMARY KEY (idQuotaPret, idTypePret, idTypeAdherant),
     FOREIGN KEY (idTypePret) REFERENCES typePret(idTypePret),
@@ -90,11 +90,11 @@ CREATE TABLE pret (
     idExemplaire INT NOT NULL,
     idAdherant INT NOT NULL,
     datePret DATE NOT NULL,
-    dateRetourPrevue DATE,     -- Utilisé pour les prêts à domicile
+    dateRetourPrevue DATE,     -- Utilise pour les prets a domicile
     dateRetourReelle DATE,     -- Quand le livre est rendu
     typePret VARCHAR(20) NOT NULL CHECK (typePret IN ('Domicile', 'SurPlace')),
-    heurePret TIME,            -- Utilisé pour les prêts sur place
-    heureRetourPrevue TIME,    -- Heure de fin du prêt sur place
+    heurePret TIME,            -- Utilise pour les prets sur place
+    heureRetourPrevue TIME,    -- Heure de fin du pret sur place
     statut VARCHAR(20) DEFAULT 'En cours' CHECK (statut IN ('En cours', 'Rendu')),
     FOREIGN KEY (idExemplaire) REFERENCES exemplaire(idExemplaire),
     FOREIGN KEY (idAdherant) REFERENCES adherant(idAdherant)
